@@ -12,6 +12,7 @@
 const fs = require('fs');
 const path = require('path');
 const pug = require('pug');
+const camelCase = require('camelcase');
 const commandLineArgs = require('command-line-args');
 
 const optionDefinitions = [
@@ -27,7 +28,13 @@ const optionDefinitions = [
     alias: 'o',
     type: String,
     multiple: false
+  },
+  {
+    name: 'quiet',
+    alias: 'q',
+    type: Boolean
   }
+
 ];
 const options = commandLineArgs(optionDefinitions);
 
@@ -35,15 +42,15 @@ var buffer = '\'use strict\';\n\n';
 buffer += 'const pug = require(\'pug-runtime\');\n\n';
 
 for (let file of options.files) {
-  let module = path.basename(file, '.pug');
-  let compiled = pug.compileFile(file, {
-    name: module
-  });
-  buffer += '\n' + 'module.exports.' + module + ' = ' + compiled + ';\n';
+  let module = camelCase(path.basename(file, '.pug')).replace(/\W/g, '');
+  let compiled = pug.compileFile(file);
+  buffer += '\n' + 'module.exports[\'' + module + '\'] = ' + compiled + ';\n';
 }
 
 fs.writeFile(options.output, buffer, (err) => {
     if (err) throw err;
-    console.log('File ' + options.output + ' has been saved!');
+    if (!options.quiet) {
+      console.log('File ' + options.output + ' has been saved!');
+    }
 });
 
