@@ -1,0 +1,22 @@
+{
+  "name": "pug-module",
+  "version": "1.0.0",
+  "description": "Compiles pug files into a module that can be required.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pug",
+    "module",
+    "compile",
+    "files"
+  ],
+  "author": "Lucas Neves <lcneves@gmail.com> (https://www.lcneves.com)",
+  "license": "MIT",
+  "dependencies": {
+    "command-line-args": "^4.0.4",
+    "pug": "^2.0.0-rc.1"
+  },
+  { "bin" : { "pug-module" : "./index.js" } }
+}
