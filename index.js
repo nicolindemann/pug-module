@@ -12,7 +12,6 @@
 const fs = require('fs');
 const path = require('path');
 const pug = require('pug');
-const wrap = require('pug-runtime/wrap');
 const commandLineArgs = require('command-line-args');
 
 const optionDefinitions = [
@@ -33,12 +32,14 @@ const optionDefinitions = [
 const options = commandLineArgs(optionDefinitions);
 
 var buffer = '\'use strict\';\n\n';
+buffer += 'const pug = require(\'pug-runtime\');\n\n';
 
 for (let file of options.files) {
   let module = path.basename(file, '.pug');
-  let compiled = pug.compileFileClient(file, { externalRuntime: true });
-  let wrapped = wrap(compiled);
-  buffer += '\n' + 'module.exports.' + module + ' = ' + wrapped + ';\n';
+  let compiled = pug.compileFile(file, {
+    name: module
+  });
+  buffer += '\n' + 'module.exports.' + module + ' = ' + compiled + ';\n';
 }
 
 fs.writeFile(options.output, buffer, (err) => {
