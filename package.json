@@ -16,7 +16,8 @@
   "license": "MIT",
   "dependencies": {
     "command-line-args": "^4.0.4",
-    "pug": "^2.0.0-rc.1"
+    "pug": "^2.0.0-rc.1",
+    "pug-runtime": "^2.0.3"
   },
   "bin": {
     "pug-module": "./index.js"
