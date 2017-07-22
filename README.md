@@ -6,6 +6,7 @@ Compiles multiple .pug files into a module that can be used in Node, Browserify 
 
 ```
 $ npm install pug-module --save-dev
+$ npm install pug-runtime --save
 ```
 
 package.json:
