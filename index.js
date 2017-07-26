@@ -48,7 +48,7 @@ var buffer = '\'use strict\';\n\n';
 buffer += 'const pug = require(\'pug-runtime\');\n\n';
 
 for (let file of options.files) {
-  let module = options.prefix + camelCase(path.basename(file, '.pug')).replace(/\W/g, '');
+  let module = (options.prefix ? options.prefix : '') + camelCase(path.basename(file, '.pug')).replace(/\W/g, '');
   let compiled = pug.compileFile(file);
   buffer += '\n' + 'module.exports[\'' + module + '\'] = ' + compiled + ';\n';
 }
