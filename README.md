@@ -41,6 +41,7 @@ node_modules/.bin/pug-module [options] path/to/files*.pug -o path/to/compiled.js
 ### Options
 
 `-q, --quiet`: Do not output success message to console.
+
 `-p, --prefix`: Add prefix to module names.
 
 ### How is the template function name composed?
