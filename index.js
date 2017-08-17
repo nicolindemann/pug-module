@@ -53,10 +53,20 @@ for (let file of options.files) {
   buffer += '\n' + 'module.exports[\'' + module + '\'] = ' + compiled + ';\n';
 }
 
+function ensureDirectoryExistence(filePath) {
+  var dirname = path.dirname(filePath);
+  if (fs.statSync(dirname)) {
+    return true;
+  }
+  ensureDirectoryExistence(dirname);
+  fs.mkdirSync(dirname);
+}
+
+ensureDirectoryExistence(options.output)
+
 fs.writeFile(options.output, buffer, (err) => {
     if (err) throw err;
     if (!options.quiet) {
       console.log('File ' + options.output + ' has been saved!');
     }
 });
-
