@@ -55,11 +55,14 @@ for (let file of options.files) {
 
 function ensureDirectoryExistence(filePath) {
   var dirname = path.dirname(filePath);
-  if (fs.existsSync(dirname)) {
-    return true;
+  try {
+    if (fs.existsSync(dirname)) {
+      return true;
+    }
+  } catch (err) {
+    ensureDirectoryExistence(dirname);
+    fs.mkdirSync(dirname);  
   }
-  ensureDirectoryExistence(dirname);
-  fs.mkdirSync(dirname);
 }
 
 ensureDirectoryExistence(options.output)
