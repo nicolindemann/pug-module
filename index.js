@@ -55,7 +55,7 @@ for (let file of options.files) {
 
 function ensureDirectoryExistence(filePath) {
   var dirname = path.dirname(filePath);
-  if (fs.statSync(dirname)) {
+  if (fs.existsSync(dirname)) {
     return true;
   }
   ensureDirectoryExistence(dirname);
